@@ -115,6 +115,20 @@ public class MainActivity extends ActionBarActivity implements  Notifiable {
 
 		});
 		//
+		final Button butConfig=(Button)this.findViewById(id.btnConfig);
+		butConfig.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+			
+				intent.setClass(MainActivity.this, Config.class);  
+				startActivity(intent); 
+			}
+			
+		});
+		//
 		final Button butFreshRoom=(Button)this.findViewById(id.btnFreshRoom);
 		butFreshRoom.setOnClickListener(new View.OnClickListener() {
 
@@ -151,7 +165,9 @@ public class MainActivity extends ActionBarActivity implements  Notifiable {
 			public void onClick(View vv) {
 				if(MainActivity.this.connect == false)
 				{
-						int res = VoiceSession.getInstance().Init("192.168.1.100", (short)9009);
+					String addr = Param.getInstance().server_ip;
+					short port = (short) Integer.parseInt(Param.getInstance().server_port);
+						int res = VoiceSession.getInstance().Init(addr,port);
 					if(res != 0)
 					{
 						showMessage("connect failed");
